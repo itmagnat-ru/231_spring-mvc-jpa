@@ -1,0 +1,111 @@
+<div th:fragment="main_index">
+    <h1>Текущая задача</h1>
+
+    <!--<p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the
+        text, and add your own fullscreen background photo to make it your own.</p>-->
+
+
+    <th:block th:each="msg : ${messages}">
+        <p class="lead" th:text="${msg}"></p>
+    </th:block>
+
+
+    <p class="lead mt-5">
+        <a href="/start" class="btn btn-lg btn-light fw-bold border-white bg-white">Заполнить демо данные</a>
+    </p>
+</div>
+
+<div th:fragment="main_cars">
+
+
+    <nav class="container d-flex flex-column flex-md-row justify-content-between mt-5">
+        <!-- <a class="py-2" href="#" aria-label="Product">
+             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24"><title>Product</title><circle cx="12" cy="12" r="10"></circle><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"></path></svg>
+         </a>-->
+        <a class="py-2 d-none d-md-inline-block" href="/cars?count=1">One Car</a>
+        <a class="py-2 d-none d-md-inline-block" href="/cars?count=2">Two Cars</a>
+        <a class="py-2 d-none d-md-inline-block" href="/cars?count=3">Three Cars</a>
+        <a class="py-2 d-none d-md-inline-block" href="/cars?count=4">Four Cars</a>
+        <a class="py-2 d-none d-md-inline-block" href="/cars?count=5">All Cars</a>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row mb-3 text-center">
+            <div class="col-4 themed-grid-col"><b>ID</b></div>
+            <div class="col-4 themed-grid-col"><b>MODEL</b></div>
+            <div class="col-4 themed-grid-col"><b>SERIES</b></div>
+        </div>
+        <div th:each="car : ${cars}" class="row mb-3 text-center mt-5">
+            <div class="col-4 themed-grid-col">
+                <p th:text="${car.id}"/>
+            </div>
+            <div class="col-4 themed-grid-col">
+                <p th:text="${car.model}"/>
+            </div>
+            <div class="col-4 themed-grid-col">
+                <p th:text="${car.series}"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:fragment="main_users">
+
+    <div class="container mt-5">
+
+        <div th:insert="form :: form_add"></div>
+
+        <div class="row mb-3 text-center">
+
+            <div class="col-1 themed-grid-col"><b></b></div>
+
+            <div class="col-1 themed-grid-col"><b>ID</b></div>
+            <div class="col-3 themed-grid-col"><b>NAME</b></div>
+            <div class="col-3 themed-grid-col"><b>LAST NAME</b></div>
+            <div class="col-3 themed-grid-col"><b>E-MAIL</b></div>
+
+            <div class="col-1 themed-grid-col"><b></b></div>
+
+        </div>
+
+        <div th:each="user : ${users}" class="row mb-3 text-center mt-5">
+
+            <div class="col-1 themed-grid-col"><a th:method="DELETE" th:href="@{'delete/' + ${user.id}}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                </svg>
+            </a></div>
+
+            <div class="col-1 themed-grid-col">
+                <p th:text="${user.id}"/>
+            </div>
+
+            <div class="col-3 themed-grid-col">
+                <p th:text="${user.name}"/>
+            </div>
+
+            <div class="col-3 themed-grid-col">
+                <p th:text="${user.lastName}"/>
+            </div>
+
+            <div class="col-3 themed-grid-col">
+                <p th:text="${user.email}"/>
+            </div>
+
+            <!--ЧУЮ ЗДЕСЬ БУДЕТ ЖАРКО-->
+
+            <div class="col-1 themed-grid-col"><a th:method="GET" th:href="@{'edit_user/' + ${user.id}}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd"
+                          d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
+            </a></div>
+        </div>
+
+    </div>
+
+</div>
